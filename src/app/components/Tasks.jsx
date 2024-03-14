@@ -16,7 +16,7 @@ export default async function Tasks() {
     const data = await getTasks()
     console.log("Esto es data: ", data);
     return (
-        <section className="mt-10 flex justify-center items-center">
+        <section className="mt-20 flex justify-center items-center">
 
             {data.status ?
                 <div className="grid grid-cols-1 gap-20">
