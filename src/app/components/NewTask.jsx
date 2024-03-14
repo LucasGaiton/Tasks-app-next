@@ -11,6 +11,8 @@ export default function NewTask() {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
 
+    const [error, setError] = useState(false)
+
     const titleChange = (e) => {
         setTitle(e.target.value);
     };
@@ -21,21 +23,24 @@ export default function NewTask() {
 
     const onSubmit = async (e) => {
         e.preventDefault();
-        try {
-            if (params.idTask) {
-                await axios.put(`/api/task/${params.idTask}`, {
-                    title,
-                    description,
-                });
-            } else {
-                await axios.post("/api/task", { title, description });
+        if (title && description) {
+            try {
+                if (params.idTask) {
+                    await axios.put(`/api/task/${params.idTask}`, {
+                        title,
+                        description,
+                    });
+                } else {
+                    await axios.post("/api/task", { title, description });
+                }
+                router.push("/");
+            } catch (error) {
+                console.error("Error submitting the form:", error);
+                // Puedes manejar el error de alguna manera, por ejemplo, mostrar un mensaje al usuario.
             }
-            // router.refresh();
-            router.push("/");
-        } catch (error) {
-            console.error("Error submitting the form:", error);
-            // Puedes manejar el error de alguna manera, por ejemplo, mostrar un mensaje al usuario.
         }
+        else
+            setError(true);
     };
 
     const fetchData = async () => {
@@ -58,26 +63,27 @@ export default function NewTask() {
 
     return (
         <div className="flex flex-col justify-center items-center h-screen">
-            <form onSubmit={onSubmit} className="bg-slate-400 flex flex-col p-10 w-1/2">
+            <form onSubmit={onSubmit} className="bg-slate-800 flex flex-col p-10 w-1/2">
                 <input
                     onChange={titleChange}
                     value={title}
                     name="title"
                     placeholder="Introduzca el nombre de su tarea"
-                    className="text-slate-800 p-4 h-14"
+                    className="bg-black text-gray-300 p-4 h-14"
                     type="text"
                 />
                 <textarea
                     onChange={DescriptionChange}
                     value={description}
-                    className="text-slate-800 h-36 p-4 mt-7"
+                    className="bg-black text-gray-300 h-36 p-4 mt-7"
                     name="description"
                     placeholder="Introduzca la descripcion de su tarea"
                     cols="5"
                     rows="10"
                 ></textarea>
+                {error ? <p className="text-red-800 text-center mt-[3px]">Complete todos los campos poara crear la tarea</p> : <></>}
                 {params.idTask ? (
-                    <div className="flex justify-center mt-10 space-x-4">
+                    <div className="flex justify-center mt-5 space-x-4">
                         <button
                             type="submit"
                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
@@ -97,7 +103,7 @@ export default function NewTask() {
                 ) : (
                     <button
                         type="submit"
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded mt-5"
                     >
                         Crear
                     </button>

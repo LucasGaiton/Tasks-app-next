@@ -28,7 +28,6 @@ export default async function Tasks() {
                 </div> :
                 <div className="grid grid-cols-3 gap-10">{
                     data.map(({ title, description, id }) => {
-                        console.log("la concha de tu madre", data);
                         return <Task key={id} title={title} description={description} id={id} ></Task>
                     })}
                     <Link href={`/new`}>

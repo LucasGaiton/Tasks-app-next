@@ -15,12 +15,12 @@ export default function Task({ title, description, id }) {
     return (
         <div className=" flex flex-col justify-between p-6 items-center bg-slate-800 w-70 h-52 - rounded-xl ">
             <Link href={`/edit/${id}`}>
-                <div>
-                    <h1 className="font-bold text-xl mb-2">{title}</h1>
+                <div className="text-gray-300">
+                    <h1 className="font-bold text-xl mb-2 text-center">{title}</h1>
                     <p className="text-white-700 text-base text-center">{description}</p>
                 </div>
             </Link>
-            <button type="button" className="flex justify-self-end bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
+            <button type="button" className="flex justify-self-end mt-1 bg-red-500 hover:bg-red-700 text-gray-300 font-bold py-2 px-4 rounded-full"
                 onClick={(e) => {
                     e.stopPropagation()
                     deleteTask()
