@@ -63,7 +63,7 @@ export default function NewTask() {
 
     return (
         <div className="flex flex-col justify-center items-center h-screen">
-            <form onSubmit={onSubmit} className="bg-slate-800 flex flex-col p-10 w-1/2">
+            <form onSubmit={onSubmit} className="bg-slate-800 flex flex-col p-10 w-1/2 rounded-xl">
                 <input
                     onChange={titleChange}
                     value={title}
